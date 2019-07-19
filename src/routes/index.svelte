@@ -1,47 +1,69 @@
 <style>
-	h1, figure, p {
-		text-align: center;
-		margin: 0 auto;
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
 	}
 
-	h1 {
-		font-size: 2.8em;
-		text-transform: uppercase;
-		font-weight: 700;
-		margin: 0 0 0.5em 0;
+	body {
+		font: 13px Helvetica, Arial;
+		background: #B34E7E;
 	}
 
-	figure {
-		margin: 0 0 1em 0;
-	}
-
-	img {
+	.container {
 		width: 100%;
-		max-width: 400px;
-		margin: 0 0 1em 0;
+		margin: 140px 10px;
 	}
 
-	p {
-		margin: 1em auto;
+	form {
+		background: #01B3ED;
+		padding: 3px;
+		width: 100%;
 	}
 
-	@media (min-width: 480px) {
-		h1 {
-			font-size: 4em;
-		}
+	form input {
+		border: 0;
+		padding: 10px;
+		width: 90%;
+		margin-right: .5%;
+		background: #B34E7E;
+	}
+
+	form button {
+		width: 9%;
+		background: #FFF8B8;
+		border: none;
+		padding: 10px;
+	}
+
+	#messages {
+		height: 600px;
+		width: 100%;
+		border: 3px solid #01B3ED;
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	#messages li {
+		padding: 5px 10px;
+	}
+
+	#messages li:nth-child(odd) {
+		background: #01B3ED;
 	}
 </style>
 
 <svelte:head>
-	<title>Sapper project template</title>
+	<title>Chat App</title>
 	<script src="/socket.io/socket.io.js"></script>
 </svelte:head>
 
-<h1>Great success!</h1>
-
-<figure>
-	<img alt='Borat' src='great-success.png'>
-	<figcaption>HIGH FIVE!</figcaption>
-</figure>
-
-<p><strong>Try editing this file (src/routes/index.svelte) to test live reloading.</strong></p>
+<body>
+	<div class="container">
+		<ul id="messages"></ul>
+		<form action="">
+			<input id="m" autocomplete="off" /><button>Send</button>
+		</form>	
+	</div>
+</body>
