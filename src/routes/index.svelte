@@ -3,6 +3,7 @@
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
+		overflow: hidden;
 	}
 
 	body {
@@ -10,9 +11,12 @@
 		background: #B34E7E;
 	}
 
-	.container {
-		width: 100%;
-		margin: 140px 10px;
+	.interface {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		height: 100vh;
 	}
 
 	form {
@@ -27,6 +31,7 @@
 		width: 90%;
 		margin-right: .5%;
 		background: #B34E7E;
+		color: #FFF8B8;
 	}
 
 	form button {
@@ -34,6 +39,7 @@
 		background: #FFF8B8;
 		border: none;
 		padding: 10px;
+		color: #01B3ED;
 	}
 
 	#messages {
@@ -60,7 +66,7 @@
 </svelte:head>
 
 <body>
-	<div class="container">
+	<div class="interface">
 		<ul id="messages"></ul>
 		<form action="">
 			<input id="m" autocomplete="off" /><button>Send</button>
