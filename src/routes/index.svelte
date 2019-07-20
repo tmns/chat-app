@@ -57,16 +57,29 @@
   #messages li:nth-child(odd) {
     background: #01b3ed;
   }
+
+	::placeholder {
+		color: #fff8b8;
+	}
 </style>
 
 <svelte:head>
   <title>Chat App</title>
-  <script src="/socket.io/socket.io.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
 	<link href='https://fonts.googleapis.com/css?family=Bungee' rel='stylesheet' type='text/css'>
 </svelte:head>
 
+
 <script>
 	import Heading from '../components/Heading.svelte';
+
+	let placeholder = 'Type your message here...';
+	let message = '';
+
+	function handleSubmit() {
+		socket.emit('message', message);
+		message = '';
+	}
 </script>
 
 <body>
@@ -74,8 +87,8 @@
 		<Heading text={'Chat App'} />
     <ul id="messages" />
     <form action="">
-      <input id="m" autocomplete="off" />
-      <button>Send</button>
+      <input id="m" autocomplete="off" placeholder={placeholder} bind:value={message} />
+      <button on:click|preventDefault={handleSubmit}>Send</button>
     </form>
   </div>
 </body>
