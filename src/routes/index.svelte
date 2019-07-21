@@ -7,7 +7,7 @@
   }
 
   body {
-    font: 13px 'Noto Sans';
+    font: 13px "Noto Sans";
     background: #b34e7e;
   }
 
@@ -41,71 +41,98 @@
     color: #01b3ed;
   }
 
-  #messages {
-    height: 600px;
+	#messageBox {
+		height: 600px;
     width: 100%;
     border: 3px solid #01b3ed;
+		overflow: auto;
+	}
+
+  #messages {
+		align-self: center;
     list-style-type: none;
     margin: 0;
     padding: 0;
-		font-size: 14px;
+    font-size: 14px;
   }
 
   #messages li {
     padding: 5px 10px;
-		background: #fff8b8;
-		color: #01b3ed;
+		border-radius: 1em;
+		margin: 0.5em auto;
+		width: 95%;
+    background: #fff8b8;
+    color: #01b3ed;
+		overflow-wrap: break-word;
   }
 
   #messages li:nth-child(odd) {
     background: #01b3ed;
-		color: #fff8b8;
+    color: #fff8b8;
   }
 
-	::placeholder {
-		color: #fff8b8;
-	}
+  ::placeholder {
+    color: #fff8b8;
+  }
 </style>
 
 <svelte:head>
   <title>Chat App</title>
-	<link href="https://fonts.googleapis.com/css?family=Bungee+Outline|Noto+Sans&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Bungee+Outline|Noto+Sans&display=swap"
+    rel="stylesheet" />
 </svelte:head>
 
-
 <script>
-	import io from 'socket.io-client';
-	import { fade } from 'svelte/transition';
-	import Heading from '../components/Heading.svelte';
+  import io from "socket.io-client";
+  import { fade } from "svelte/transition";
+  import Heading from "../components/Heading.svelte";
 
-	const socket = io();
+  const socket = io();
 
-	let placeholder = 'Type your message here...';
-	let messages = [];
-	let message = '';
+  const placeholder = "Type your message here...";
+  let messages = [];
+  let message = "";
 
-	socket.on('message', function(message) {
+  socket.on("message", function(message) {
 		console.log(`msg ${message} received on client`);
+		
 		messages = messages.concat(message);
-	});
+		
+		updateScroll();
+  });
 
-	function handleSubmit() {
+  function handleSubmit() {
+		if (message == '') {
+			return;
+		}
+
 		messages = messages.concat(message);
-		socket.emit('message', message);
-		message = '';
+		socket.emit("message", message);
+
+		updateScroll();
+			
+		message = "";
+	}
+	
+	function updateScroll() {
+		const messageBox = document.getElementById('messageBox');
+		messageBox.scrollTop = messageBox.scrollHeight;			
 	}
 </script>
 
 <body>
   <div class="main">
-		<Heading text={'Chat App'} />
-    <ul id="messages">
-			{#each messages as message}
-			<li transition:fade>{message}</li>
-			{/each}
-		</ul>
+    <Heading text={'Chat App'} />
+    <div id="messageBox">
+      <ul id="messages">
+        {#each messages as message}
+          <li transition:fade>{message}</li>
+        {/each}
+      </ul>
+    </div>
     <form action="">
-      <input id="m" autocomplete="off" placeholder={placeholder} bind:value={message} />
+      <input id="m" autocomplete="off" {placeholder} bind:value={message} />
       <button on:click|preventDefault={handleSubmit}>Send</button>
     </form>
   </div>
