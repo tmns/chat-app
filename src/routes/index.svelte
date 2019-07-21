@@ -7,7 +7,7 @@
   }
 
   body {
-    font: 13px Helvetica, Arial;
+    font: 13px 'Noto Sans';
     background: #b34e7e;
   }
 
@@ -48,6 +48,7 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
+		font-size: 14px;
   }
 
   #messages li {
@@ -68,12 +69,13 @@
 
 <svelte:head>
   <title>Chat App</title>
-	<link href='https://fonts.googleapis.com/css?family=Bungee' rel='stylesheet' type='text/css'>
+	<link href="https://fonts.googleapis.com/css?family=Bungee+Outline|Noto+Sans&display=swap" rel="stylesheet">
 </svelte:head>
 
 
 <script>
 	import io from 'socket.io-client';
+	import { fade } from 'svelte/transition';
 	import Heading from '../components/Heading.svelte';
 
 	const socket = io();
@@ -99,7 +101,7 @@
 		<Heading text={'Chat App'} />
     <ul id="messages">
 			{#each messages as message}
-			<li>{message}</li>
+			<li transition:fade>{message}</li>
 			{/each}
 		</ul>
     <form action="">

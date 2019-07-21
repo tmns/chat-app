@@ -1,6 +1,6 @@
 <style>
   #heading {
-    font-family: "Bungee", cursive;
+    font-family: "Bungee Outline", cursive;
     text-transform: uppercase;
     font-size: 80px;
     font-weight: bold;
