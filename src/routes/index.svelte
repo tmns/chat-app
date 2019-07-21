@@ -65,13 +65,15 @@
 
 <svelte:head>
   <title>Chat App</title>
-	<script src="/socket.io/socket.io.js"></script>
 	<link href='https://fonts.googleapis.com/css?family=Bungee' rel='stylesheet' type='text/css'>
 </svelte:head>
 
 
 <script>
+	import io from 'socket.io-client';
 	import Heading from '../components/Heading.svelte';
+
+	const socket = io();
 
 	let placeholder = 'Type your message here...';
 	let message = '';
