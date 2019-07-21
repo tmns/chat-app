@@ -25,6 +25,7 @@ io(server).on('connection', function(socket) {
 
 	socket.on('message', function(msg) {
 		console.log('message: ' + msg);
+		socket.broadcast.emit('message', msg);
 	})
 });
 

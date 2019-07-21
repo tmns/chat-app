@@ -52,10 +52,13 @@
 
   #messages li {
     padding: 5px 10px;
+		background: #fff8b8;
+		color: #01b3ed;
   }
 
   #messages li:nth-child(odd) {
     background: #01b3ed;
+		color: #fff8b8;
   }
 
 	::placeholder {
@@ -76,9 +79,16 @@
 	const socket = io();
 
 	let placeholder = 'Type your message here...';
+	let messages = [];
 	let message = '';
 
+	socket.on('message', function(message) {
+		console.log(`msg ${message} received on client`);
+		messages = messages.concat(message);
+	});
+
 	function handleSubmit() {
+		messages = messages.concat(message);
 		socket.emit('message', message);
 		message = '';
 	}
@@ -87,7 +97,11 @@
 <body>
   <div class="main">
 		<Heading text={'Chat App'} />
-    <ul id="messages" />
+    <ul id="messages">
+			{#each messages as message}
+			<li>{message}</li>
+			{/each}
+		</ul>
     <form action="">
       <input id="m" autocomplete="off" placeholder={placeholder} bind:value={message} />
       <button on:click|preventDefault={handleSubmit}>Send</button>
