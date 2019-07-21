@@ -90,25 +90,42 @@
 
   const socket = io();
 
-  const placeholder = "Type your message here...";
-  let messages = [];
-  let message = "";
+	const placeholder = "Type your message here...";
+	let greeting = `You have joined the chat. Use '/nick your_nickname' to set your nickname!`
+  let messages = [greeting];
+	let message = "";
+	// let numberOfConnections = 0;
+	let name = 'Anonymous';
 
-  socket.on("message", function(message) {
-		console.log(`msg ${message} received on client`);
-		
+  socket.on("message", function(message) {		
 		messages = messages.concat(message);
 		
 		updateScroll();
-  });
+	});
+	
+	socket.on("newConnection", function(message) {
+		messages = messages.concat(message);
+		updateScroll();
+		// numberOfConnections += 1;
+	});
 
   function handleSubmit() {
+		message = message.trim();
+		
 		if (message == '') {
 			return;
 		}
 
-		messages = messages.concat(message);
-		socket.emit("message", message);
+		let messageString = `${name}: ${message}`;
+
+		if (message.slice(0, 5) == '/nick') {
+			let newName = message.slice(6);
+			messageString = `Server: ${name} changed their nickname to ${newName}`;
+			name = newName;
+		}
+
+		messages = messages.concat(messageString);
+		socket.emit("message", messageString);
 
 		updateScroll();
 			
@@ -135,5 +152,6 @@
       <input id="m" autocomplete="off" {placeholder} bind:value={message} />
       <button on:click|preventDefault={handleSubmit}>Send</button>
     </form>
+	<!--	<p>There are currently {numberOfConnections} users in the chat</p> -->
   </div>
 </body>
