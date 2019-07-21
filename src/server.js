@@ -22,7 +22,7 @@ polka({ server }) // You can also use Express
 
 io(server).on('connection', function(socket) {
 	console.log('a user connected');
-	socket.broadcast.emit('newConnection', 'Server: A new user has joined the chat');
+	socket.broadcast.emit('new connection', 'Server: A new user has joined the chat');
 
 	socket.on('message', function(msg) {
 		socket.broadcast.emit('message', msg);

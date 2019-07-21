@@ -103,7 +103,7 @@
 		updateScroll();
 	});
 	
-	socket.on("newConnection", function(message) {
+	socket.on("new connection", function(message) {
 		messages = messages.concat(message);
 		updateScroll();
 		// numberOfConnections += 1;
