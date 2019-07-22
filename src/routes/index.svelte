@@ -85,29 +85,33 @@
 
 <script>
   import io from "socket.io-client";
-  import { fade } from "svelte/transition";
-  import Heading from "../components/Heading.svelte";
+	import { fade } from "svelte/transition";
+	
+	import Heading from "../components/Heading.svelte";
 
-  const socket = io();
+	const socket = io();
 
 	const placeholder = "Type your message here...";
-	let greeting = `You have joined the chat. Use '/nick your_nickname' to set your nickname!`
+	const greeting = `You have joined the chat. Use '/nick your_nickname' to set your nickname!`
   let messages = [greeting];
 	let message = "";
-	// let numberOfConnections = 0;
 	let name = 'Anonymous';
+	let numUsersString = "There is currently 1 user in the chat!";
 
   socket.on("message", function(message) {		
 		messages = messages.concat(message);
-		
 		updateScroll();
 	});
 	
-	socket.on("new connection", function(message) {
+	socket.on("user joined", function({message, numUsers}) {
 		messages = messages.concat(message);
+		updateNumUsers(numUsers);
 		updateScroll();
-		// numberOfConnections += 1;
 	});
+
+	function updateNumUsers(numUsers) {
+		numUsersString = `There are currently ${numUsers} users in the chat!`;
+	}
 
   function handleSubmit() {
 		message = message.trim();
@@ -152,6 +156,6 @@
       <input id="m" autocomplete="off" {placeholder} bind:value={message} />
       <button on:click|preventDefault={handleSubmit}>Send</button>
     </form>
-	<!--	<p>There are currently {numberOfConnections} users in the chat</p> -->
+		<p>{numUsersString}</p>
   </div>
 </body>

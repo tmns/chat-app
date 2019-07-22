@@ -20,13 +20,20 @@ polka({ server }) // You can also use Express
 		if (err) console.log('error', err);
 	});
 
+let numUsers = 0;
+
 io(server).on('connection', function(socket) {
 	console.log('a user connected');
-	socket.broadcast.emit('new connection', 'Server: A new user has joined the chat');
+	++numUsers;
+	let message = 'Server: A new user has joined the chat';
+	socket.emit('user joined', { message, numUsers });
+	socket.broadcast.emit('user joined', { message, numUsers });
 
 	socket.on('message', function(msg) {
 		socket.broadcast.emit('message', msg);
 	})
+
+
 });
 
 
