@@ -33,7 +33,14 @@
     margin-right: 0.5%;
     background: #b34e7e;
     color: #fff8b8;
-  }
+		font-size: 14px;
+	}
+
+	@media screen and (device-aspect-ratio: 375/667) {
+		form input {
+			font-size: 16px;
+		}
+	}
 
   form button {
     background: #fff8b8;
