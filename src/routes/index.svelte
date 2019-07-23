@@ -89,6 +89,8 @@
     rel="stylesheet" />
 </svelte:head>
 
+<svelte:window on:unload={emitUserDisconnect}/>
+
 <script>
   import io from "socket.io-client";
 	import { fade } from "svelte/transition";
@@ -115,11 +117,14 @@
 		updateScroll();
 	});
 
-	socket.on("user left", function({ message, numUsers }) {
-		messages = messages.concat(message);
+	socket.on("user left", function(numUsers) {
 		numUsersConnected = numUsers;
-		updateScrooll();
+		updateScroll();
 	});
+
+	function emitUserDisconnect() {
+		socket.emit('user disconnect', name); 
+	}
 
   function handleSubmit() {
 		message = message.trim();

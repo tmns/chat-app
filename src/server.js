@@ -23,7 +23,6 @@ polka({ server }) // You can also use Express
 let numUsers = 0;
 
 io(server).on('connection', function(socket) {
-	console.log('a user connected');
 	++numUsers;
 	let message = 'Server: A new user has joined the chat';
 	socket.emit('user joined', { message, numUsers });
@@ -36,8 +35,11 @@ io(server).on('connection', function(socket) {
 
 	socket.on('disconnect', function() {
 		--numUsers;
-		let message = `Server: A user has left the chat.`;
-		socket.broadcast.emit('user left', { message, numUsers });
+		socket.broadcast.emit('user left', numUsers);
+	})
+
+	socket.on('user disconnect', function(name) {
+		socket.broadcast.emit('message', `Server: ${name} has left the chat.`)
 	})
 });
 
