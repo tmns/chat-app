@@ -74,6 +74,12 @@
   ::placeholder {
     color: #fff8b8;
   }
+
+	#numUsers {
+		color: #fff8b8;
+		padding: 1em;
+		font-size: 14px;
+	}
 </style>
 
 <svelte:head>
@@ -96,7 +102,7 @@
   let messages = [greeting];
 	let message = "";
 	let name = 'Anonymous';
-	let numUsersString = "There is currently 1 user in the chat!";
+	let numUsersConnected = 0;
 
   socket.on("message", function(message) {		
 		messages = messages.concat(message);
@@ -105,13 +111,15 @@
 	
 	socket.on("user joined", function({message, numUsers}) {
 		messages = messages.concat(message);
-		updateNumUsers(numUsers);
+		numUsersConnected = numUsers;
 		updateScroll();
 	});
 
-	function updateNumUsers(numUsers) {
-		numUsersString = `There are currently ${numUsers} users in the chat!`;
-	}
+	socket.on("user left", function({ message, numUsers }) {
+		messages = messages.concat(message);
+		numUsersConnected = numUsers;
+		updateScrooll();
+	});
 
   function handleSubmit() {
 		message = message.trim();
@@ -156,6 +164,6 @@
       <input id="m" autocomplete="off" {placeholder} bind:value={message} />
       <button on:click|preventDefault={handleSubmit}>Send</button>
     </form>
-		<p>{numUsersString}</p>
+		<p id="numUsers">There {numUsersConnected == 1 ? 'is' : 'are'} {numUsersConnected} {numUsersConnected == 1 ? 'user' : 'users'} currently chatting!</p>
   </div>
 </body>

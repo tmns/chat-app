@@ -34,6 +34,11 @@ io(server).on('connection', function(socket) {
 	})
 
 
+	socket.on('disconnect', function() {
+		--numUsers;
+		let message = `Server: A user has left the chat.`;
+		socket.broadcast.emit('user left', { message, numUsers });
+	})
 });
 
 
