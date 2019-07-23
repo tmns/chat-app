@@ -43,10 +43,16 @@
   }
 
 	#chatWindow {
-		height: 600px;
+		height: 450px;
     width: 100%;
     border: 3px solid #01b3ed;
 		overflow: auto;
+	}
+
+	@media (min-height: 845px) {
+		#chatWindow {
+			height: 600px;
+		}
 	}
 
   #messages {
