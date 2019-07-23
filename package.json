@@ -1,6 +1,6 @@
 {
-  "name": "TODO",
-  "description": "TODO",
+  "name": "chat-app",
+  "description": "A simple chat app to help learn / teach Svelte and Socket.IO",
   "version": "0.0.1",
   "scripts": {
     "dev": "sapper dev",
