@@ -2,7 +2,7 @@
   #heading {
     font-family: "Bungee Outline", cursive;
     text-transform: uppercase;
-    font-size: 80px;
+    font-size: 60px;
     font-weight: bold;
     margin: 0;
     top: 0;
@@ -39,6 +39,13 @@
     left: 3.6px;
     color: #b34e7e;
   }
+
+  @media (min-width: 475px) {
+    #heading {
+      font-size: 80px;
+    }
+  }
+
   @-webkit-keyframes skew {
     0% {
       -webkit-transform: none;

@@ -23,6 +23,7 @@
     background: #01b3ed;
     padding: 3px;
     width: 100%;
+		display: flex;
   }
 
   form input {
@@ -37,7 +38,7 @@
   form button {
     background: #fff8b8;
     border: none;
-    padding: 10px 13px;
+    padding: 10px 15px;
     color: #01b3ed;
   }
 
@@ -87,6 +88,7 @@
   <link
     href="https://fonts.googleapis.com/css?family=Bungee+Outline|Noto+Sans&display=swap"
     rel="stylesheet" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </svelte:head>
 
 <svelte:window on:unload={emitUserDisconnect}/>
