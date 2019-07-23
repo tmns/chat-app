@@ -42,7 +42,7 @@
     color: #01b3ed;
   }
 
-	#messageBox {
+	#chatWindow {
 		height: 600px;
     width: 100%;
     border: 3px solid #01b3ed;
@@ -147,20 +147,22 @@
 		socket.emit("message", messageString);
 
 		updateScroll();
-			
+
 		message = "";
 	}
 	
 	function updateScroll() {
-		const messageBox = document.getElementById('messageBox');
-		messageBox.scrollTop = messageBox.scrollHeight;			
+		const chatWindow = document.getElementById('chatWindow');
+		setTimeout(() => {
+			chatWindow.scrollTop = chatWindow.scrollHeight;			
+		}, 0);
 	}
 </script>
 
 <body>
   <div class="main">
     <Heading text={'Chat App'} />
-    <div id="messageBox">
+    <div id="chatWindow">
       <ul id="messages">
         {#each messages as message}
           <li transition:fade>{message}</li>
