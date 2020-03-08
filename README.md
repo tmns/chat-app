@@ -2,7 +2,7 @@
 
 ![](./screens/screen1.png)
 
-A simple chat app I created to help myself learn Svelte / Sapper and Socket.IO. It can be used as a fun example app to build with a group of students when teaching these technologies (along with Polka, Rollup, and even Cypress). You can play with the demo [here](https://chat-app-svelte.herokuapp.com). Note however, I use a free teir at Heroku so the initial start up time is pretty slow!
+A simple chat app I created to help myself learn Svelte / Sapper and Socket.IO. It can be used as a fun example app to build with a group of students when teaching these technologies (along with Polka, Rollup, and even Cypress). You can play with the demo [here](https://chat-app-svelte.herokuapp.com). Note however, I use a free tier at Heroku so the initial start up time is pretty slow!
 
 The chat app implements the following functionality:
 * Joining the chat
